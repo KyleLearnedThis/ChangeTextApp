@@ -14,7 +14,9 @@ public class BaseTest {
     // Note that IDE suggested to change text to AtomicReference instead of String, so I did.
     public String getResourceString(Integer id) {
         AtomicReference<String> text = new AtomicReference<>("");
-        activityScenarioRule.getScenario().onActivity(it -> text.set(it.getResources().getString(id)));
+        activityScenarioRule
+                .getScenario()
+                .onActivity(it -> text.set(it.getResources().getString(id)));
         return text.get();
     }
 }

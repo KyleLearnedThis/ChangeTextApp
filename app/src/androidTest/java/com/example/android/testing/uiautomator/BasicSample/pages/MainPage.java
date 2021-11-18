@@ -1,6 +1,7 @@
 package com.example.android.testing.uiautomator.BasicSample.pages;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -31,5 +32,9 @@ public class MainPage {
 
     public void validateShowTextView(String input) {
         onView(withId(R.id.show_text_view)).check(matches(withText(input)));
+    }
+
+    public void clearEditText() {
+        onView(withId(R.id.editTextUserInput)).perform(clearText());
     }
 }

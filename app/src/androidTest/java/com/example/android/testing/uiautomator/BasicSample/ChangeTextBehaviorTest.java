@@ -1,5 +1,6 @@
 package com.example.android.testing.uiautomator.BasicSample;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 
@@ -22,7 +23,7 @@ public class ChangeTextBehaviorTest extends BaseTest {
 
     @Test
     public void testChangeTextSameActivity() {
-        String input = "Hello Thrive";
+        String input = "Hello Android!";
         // Type text and then press the button.
         mainPage.editText(input);
         mainPage.clickChangeText();
@@ -33,12 +34,33 @@ public class ChangeTextBehaviorTest extends BaseTest {
 
     @Test
     public void testChangeTextNewActivity() {
-        String input = "Hello Thrive";
+        String input = "Hello Android!";
         // Type text and then press the button.
         mainPage.editText(input);
         mainPage.clickOpenActivityAndChangeText();
 
         // This view is in a different Activity, no need to tell Espresso.
         mainPage.validateShowTextView(input);
+    }
+
+    @Test
+    public void testEnterEmptyText() {
+        String input = getResourceString(R.string.hello_world);
+        mainPage.validateTextToBeChanged(input);
+        mainPage.clearEditText();
+        mainPage.clickChangeText();
+        mainPage.validateTextToBeChanged("");
+    }
+
+    @Test
+    public void testCanGoBackFromNewActivity() {
+        String input = "Hello Android!";
+        mainPage.editText(input);
+        mainPage.clickOpenActivityAndChangeText();
+        mainPage.validateShowTextView(input);
+
+        Espresso.pressBack();
+        input = getResourceString(R.string.hello_world);
+        mainPage.validateTextToBeChanged(input);
     }
 }
